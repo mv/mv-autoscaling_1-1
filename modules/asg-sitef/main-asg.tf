@@ -1,0 +1,101 @@
+locals {
+  name     = "sitef-${var.name}"
+  name_cap = "SiTef-${var.name}"
+  descr    = "SiTef: ${var.name}"
+}
+
+module "asg-sitef" {
+  source  = "terraform-aws-modules/autoscaling/aws"
+  version = "9.2.0"
+
+  # Autoscaling group
+  name = local.name_cap
+
+  min_size                  = 1
+  max_size                  = 1
+  desired_capacity          = 1
+  wait_for_capacity_timeout = 0
+  health_check_type         = "EC2"
+  vpc_zone_identifier       = var.vpc_zone_identifier
+
+  # Launch template
+  launch_template_name        = local.name
+  launch_template_description = local.descr
+  update_default_version      = true
+
+  image_id          = data.aws_ami.al2023.id
+  instance_type     = var.instance_type
+  ebs_optimized     = true
+  enable_monitoring = true
+
+  # IAM role & instance profile
+  create_iam_instance_profile = true
+  iam_role_name               = local.name
+  iam_role_description        = "${local.name} - IAM role"
+# iam_role_path               = "/ec2/"
+# iam_role_tags = { CustomIamRole = "Yes" }
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  }
+
+  block_device_mappings = [
+    {
+      # Root volume
+      device_name = "/dev/xvda"
+      no_device   = 0
+      ebs = {
+        delete_on_termination = true
+        encrypted             = true
+        volume_size           = 10
+        volume_type           = "gp2"
+      }
+    },
+    {
+      device_name = "/dev/sda1"
+      no_device   = 1
+      ebs = {
+        delete_on_termination = false
+        encrypted             = true
+        volume_size           = 20
+        volume_type           = "gp3"
+      }
+    }
+  ]
+
+  # This will ensure imdsv2 is enabled, required, and a single hop which is aws security
+  # best practices
+  # See https://docs.aws.amazon.com/securityhub/latest/userguide/autoscaling-controls.html#autoscaling-4
+  metadata_options = {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+  }
+
+  network_interfaces = [
+    {
+      delete_on_termination = true
+      description           = "eth0"
+      device_index          = 0
+      security_groups       = [aws_security_group.sg.id]
+    }
+  ]
+
+  tag_specifications = [
+    { resource_type = "instance",
+      tags = {
+        Name = local.name
+      }
+    },
+    { resource_type = "volume"  ,
+      tags = {
+        Name = "${local.name}-${formatdate("YYYY-MM-DD-hh.mm.ss", timestamp())}"
+      }
+    },
+  ]
+
+  tags = merge(
+    var.tags,
+    local.module_tags
+  )
+
+}
