@@ -4,39 +4,38 @@ locals {
   descr    = "SiTef: ${var.name}"
 }
 
-module "asg-sitef" {
+module "asg" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "9.2.0"
 
   # Autoscaling group
   name = local.name_cap
 
+  vpc_zone_identifier       = var.vpc_zone_identifier
+
+  ##
+  ## Sitef: stateful
+  ##
   min_size                  = 1
   max_size                  = 1
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
-  vpc_zone_identifier       = var.vpc_zone_identifier
 
   # Launch template
+
+  ## Ref: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id
+  image_id      = "resolve:ssm:${aws_ssm_parameter.asg_ami.name}" # ??
+
+# image_id      = data.aws_ami.al2023.id  # ??
+  instance_type = var.instance_type
+
   launch_template_name        = local.name
   launch_template_description = local.descr
-  update_default_version      = true
+  update_default_version      = true          # ??
 
-  image_id          = data.aws_ami.al2023.id
-  instance_type     = var.instance_type
   ebs_optimized     = true
   enable_monitoring = true
-
-  # IAM role & instance profile
-  create_iam_instance_profile = true
-  iam_role_name               = local.name
-  iam_role_description        = "${local.name} - IAM role"
-# iam_role_path               = "/ec2/"
-# iam_role_tags = { CustomIamRole = "Yes" }
-  iam_role_policies = {
-    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  }
 
   block_device_mappings = [
     {
@@ -46,8 +45,8 @@ module "asg-sitef" {
       ebs = {
         delete_on_termination = true
         encrypted             = true
-        volume_size           = 10
-        volume_type           = "gp2"
+        volume_size           = 10      # var.??
+        volume_type           = "gp2"   # var.??
       }
     },
     {
@@ -61,6 +60,15 @@ module "asg-sitef" {
       }
     }
   ]
+
+  # IAM role & instance profile
+  create_iam_instance_profile = true
+  iam_role_name               = local.name
+  iam_role_description        = "${local.name} - IAM role"
+  iam_role_policies = {
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore", # SSM: start session access
+    ReadOnlyAccess               = "arn:aws:iam::aws:policy/ReadOnlyAccess"                # read: tags,parameter store
+  }
 
   # This will ensure imdsv2 is enabled, required, and a single hop which is aws security
   # best practices
