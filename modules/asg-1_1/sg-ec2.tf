@@ -18,13 +18,13 @@ locals {
 ## My SG
 ##
 resource "aws_security_group" "sg" {
-  name        = "ec2-${var.name}"
-  description = "EC2: ${var.name} security group"
+  name        = "ec2-asg-${var.customer}"
+  description = "EC2: ASG: ${var.customer} security group"
 
   vpc_id = data.aws_subnet.subnet.vpc_id
 
   tags = merge(
-    { Name = "ec2-${var.name}" },
+    { Name = "ec2-asg-${var.customer}" },
     var.tags,
     local.module_tags
   )

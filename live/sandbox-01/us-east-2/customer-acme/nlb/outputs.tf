@@ -35,6 +35,7 @@ output "target_groups_data" {
   value = {
     for k in keys(module.nlb.target_groups):
       k => tomap({
+        "arn"             = module.nlb.target_groups[k].arn
         "health_check_0"  = module.nlb.target_groups[k].health_check[0].enabled
         "ip_address_type" = module.nlb.target_groups[k].ip_address_type
         "name"            = module.nlb.target_groups[k].name

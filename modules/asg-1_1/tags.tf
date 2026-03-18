@@ -1,7 +1,7 @@
 
 locals {
   module_tags = tomap({
-    "sitef:tf:module"      = "modules/auto-scaling-group"
-    "sitef:tf:module_type" = "resource"
+    "asg:tf:module"      = "modules/asg-1_1"
+    "asg:tf:module_type" = "wrapper"
   })
 }

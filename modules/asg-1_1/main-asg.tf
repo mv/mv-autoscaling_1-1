@@ -1,7 +1,7 @@
 locals {
-  name     = "sitef-${var.name}"
-  name_cap = "SiTef-${var.name}"
-  descr    = "SiTef: ${var.name}"
+  name     = "asg-${var.customer}"  # "sitef-${var.name}"
+  name_cap = "ASG-${var.customer}"  # "SiTef-${var.name}"
+  descr    = "asg: ${var.customer}" # "SiTef: ${var.name}"
 }
 
 module "asg" {
@@ -11,7 +11,19 @@ module "asg" {
   # Autoscaling group
   name = local.name_cap
 
-  vpc_zone_identifier       = var.vpc_zone_identifier
+  vpc_zone_identifier = var.vpc_zone_identifier
+
+  user_data = base64encode(var.user_data)
+
+  # LB: via Traffic source attachment
+  traffic_source_attachments = {
+    nlb = {
+      traffic_source_type       = "elbv2" # default
+      traffic_source_identifier = var.lb_target_group_arn
+#     traffic_source_identifier = module.alb.target_groups["ex_asg"].arn
+    }
+  }
+
 
   ##
   ## Sitef: stateful
@@ -25,7 +37,7 @@ module "asg" {
   # Launch template
 
   ## Ref: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id
-  image_id      = "resolve:ssm:${aws_ssm_parameter.asg_ami.name}" # ??
+  image_id      = "resolve:ssm:${var.ssm_path}" # ??
 
 # image_id      = data.aws_ami.al2023.id  # ??
   instance_type = var.instance_type
