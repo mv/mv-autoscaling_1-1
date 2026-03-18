@@ -17,7 +17,7 @@ resource "aws_ssm_parameter" "asg_ami" {
   description    = "ASG: deploy AMI"
 
   # ignore future changes to 'value': deploy via new AMI updates into 'latest'
-  lifecycle { ignore_changes = [ value, tags_all ] }
+  lifecycle { ignore_changes = [ insecure_value ] }
 
   tags = merge(
     var.tags,
