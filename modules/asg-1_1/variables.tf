@@ -9,6 +9,8 @@ variable "vpc_zone_identifier" {
   default = []
 }
 
+variable "ssm_path" { default = "/app/asg/ami"   }
+
 variable "tags" {
   type    = map(string)
   default = {}
