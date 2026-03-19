@@ -10,7 +10,7 @@
 
 ## Allow policy
 resource "aws_iam_policy" "ecr_push_pull" {
-  name        = "ECR-Push-Pull-${var.name}"
+  name        = "ECR-Push-Pull-${local.name}"
   description = "ECR: push/pull by EC2"
 
   policy = jsonencode(

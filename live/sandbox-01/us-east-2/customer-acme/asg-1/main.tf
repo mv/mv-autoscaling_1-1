@@ -12,8 +12,7 @@ module "asg" {
   ssm_path = "/app/asg/${var.customer}/ami"
 
 # iam_role_policies = {
-#   AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore" # SSM: console access
-#   ReadOnlyAccess               = "arn:aws:iam::aws:policy/ReadOnlyAccess"               # SSM: parameter store
+#   ReadOnlyAccess = "arn:aws:iam::aws:policy/ReadOnlyAccess"               # SSM: parameter store
 # }
 
 

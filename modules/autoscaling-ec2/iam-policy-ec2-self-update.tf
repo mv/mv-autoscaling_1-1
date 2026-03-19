@@ -9,7 +9,7 @@
 
 ## Allow policy
 resource "aws_iam_policy" "ec2_self_upd" {
-  name        = "EC2-Self-Update-${var.name}"
+  name        = "EC2-Self-Update-${local.name}"
   description = "EC2: self-update"
 
   policy = jsonencode(

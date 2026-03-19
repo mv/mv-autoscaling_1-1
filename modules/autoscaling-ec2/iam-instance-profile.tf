@@ -56,8 +56,8 @@ resource "aws_iam_role_policy_attachment" "policy" {
 ## Instance Profile
 ##
 resource "aws_iam_instance_profile" "profile" {
-# name_prefix = "${local.iam_role_name}_"
-  name        = local.iam_role_name
+  name_prefix = "${local.iam_role_name}_"
+# name        = local.iam_role_name
   role        = aws_iam_role.role.name
 
   tags = merge(var.tags, local.module_tags)

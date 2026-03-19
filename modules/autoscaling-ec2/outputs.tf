@@ -3,26 +3,27 @@
 
 output "asg_security_group_id" { value = aws_security_group.sg.id }
 
-output "asg_launch_template_all"                  { value = aws_launch_template.lt }
-output "asg_launch_template_arn"                  { value = aws_launch_template.lt.arn }
-output "asg_launch_template_id"                   { value = aws_launch_template.lt.id }
-output "asg_launch_template_instance_type"        { value = aws_launch_template.lt.instance_type }
-output "asg_launch_template_iam_instance_profile" { value = aws_launch_template.lt.iam_instance_profile }
-output "asg_launch_template_name"                 { value = aws_launch_template.lt.name }
-output "asg_launch_template_version_default"      { value = aws_launch_template.lt.default_version }
-output "asg_launch_template_version_latest"       { value = aws_launch_template.lt.latest_version }
-output "asg_launch_template_user_data"            { value = aws_launch_template.lt.user_data }
+output "asg_launch_template_all"                   { value = aws_launch_template.lt }
+output "asg_launch_template_arn"                   { value = aws_launch_template.lt.arn }
+output "asg_launch_template_id"                    { value = aws_launch_template.lt.id }
+output "asg_launch_template_instance_type"         { value = aws_launch_template.lt.instance_type }
+output "asg_launch_template_iam_instance_profile"  { value = aws_launch_template.lt.iam_instance_profile }
+output "asg_launch_template_name"                  { value = aws_launch_template.lt.name }
+output "asg_launch_template_version_default"       { value = aws_launch_template.lt.default_version }
+output "asg_launch_template_version_latest"        { value = aws_launch_template.lt.latest_version }
+output "asg_launch_template_user_data"             { value = aws_launch_template.lt.user_data }
+output "asg_launch_template_block_device_mappings" { value = aws_launch_template.lt.block_device_mappings }
 
-output "asg_iam_instance_profile_all"             { value = aws_iam_instance_profile.profile }
-output "asg_iam_instance_profile_arn"             { value = aws_iam_instance_profile.profile.arn }
-output "asg_iam_instance_profile_id"              { value = aws_iam_instance_profile.profile.id }
-output "asg_iam_role_all"                         { value = aws_iam_role.role }
-output "asg_iam_role_name"                        { value = aws_iam_role.role.name }
-output "asg_iam_role_arn"                         { value = aws_iam_role.role.arn  }
-output "asg_iam_role_description"                 { value = aws_iam_role.role.description  }
-output "asg_iam_role_policy_inline"               { value = aws_iam_role.role.inline_policy  }
+output "asg_iam_instance_profile_all"              { value = aws_iam_instance_profile.profile }
+output "asg_iam_instance_profile_arn"              { value = aws_iam_instance_profile.profile.arn }
+output "asg_iam_instance_profile_id"               { value = aws_iam_instance_profile.profile.id }
+output "asg_iam_role_all"                          { value = aws_iam_role.role }
+output "asg_iam_role_name"                         { value = aws_iam_role.role.name }
+output "asg_iam_role_arn"                          { value = aws_iam_role.role.arn  }
+output "asg_iam_role_description"                  { value = aws_iam_role.role.description  }
+output "asg_iam_role_policy_inline"                { value = aws_iam_role.role.inline_policy  }
 
-output "asg_iam_role_policy_attachment_all"       { value = aws_iam_role_policy_attachment.policy }
+output "asg_iam_role_policy_attachment_all"        { value = aws_iam_role_policy_attachment.policy }
 
 output "asg_iam_role_policy_attachment" {
   value = {
