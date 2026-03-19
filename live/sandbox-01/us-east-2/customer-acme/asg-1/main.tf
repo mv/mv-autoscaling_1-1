@@ -41,13 +41,8 @@ module "asg" {
 # }
 
 
-  user_data = <<-EOT
-    #!/bin/bash
-    sudo yum update -y
-    sudo yum install -y httpd
-    sudo systemctl start httpd
-    sudo systemctl enable httpd
-  EOT
+# user_data = ""
+# user_data = filebase64(var.user_data)
 
   tags = {
     "asg:env"     = "dev"
