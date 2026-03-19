@@ -1,6 +1,13 @@
+# vscode-modelines
+# vim: set ft=terraform:
+
 locals {
   ingress = {
-    ssh     = { from =   22, to=22   , protocol = "tcp"  , cidr = "0.0.0.0/0" }
+#   ssh     = { from =   22, to=22   , protocol = "tcp"  , cidr = "0.0.0.0/0"      }
+    ssh_10  = { from =   22, to=22   , protocol = "tcp"  , cidr = "10.0.0.0/8"     }
+    ssh_172 = { from =   22, to=22   , protocol = "tcp"  , cidr = "172.16.0.0/12"  }
+    ssh_192 = { from =   22, to=22   , protocol = "tcp"  , cidr = "192.168.0.0/16" }
+    http    = { from =   80, to=80   , protocol = "tcp"  , cidr = "0.0.0.0/0" }
     https   = { from =  443, to=443  , protocol = "tcp"  , cidr = "0.0.0.0/0" }
     ping    = { from =    8, to=0    , protocol = "icmp" , cidr = "0.0.0.0/0" } # echo_request: type=8, code=0
   }
@@ -14,13 +21,13 @@ locals {
 ## My SG
 ##
 resource "aws_security_group" "sg" {
-  name        = "ec2-${var.name}"
-  description = "EC2: ${var.name} security group"
+  name        = "ec2-asg-${var.customer}"
+  description = "EC2: ASG: ${var.customer} security group"
 
   vpc_id = data.aws_subnet.subnet.vpc_id
 
   tags = merge(
-    { Name = "ec2-${var.name}" },
+    { Name = "ec2-asg-${var.customer}" },
     var.tags,
     local.module_tags
   )
