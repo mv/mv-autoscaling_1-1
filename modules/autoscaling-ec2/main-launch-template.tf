@@ -2,6 +2,10 @@
 # vscode-modelines
 # vim: set ft=terraform:
 
+locals {
+  server_name = "ec2-${var.customer}-${formatdate("YYYY-MM-DD-hh.mm.ss", timestamp())}"
+}
+
 resource "aws_launch_template" "lt" {
   name        = local.name
   description = "ASG: Launch Template: [${var.name}]"
@@ -75,10 +79,13 @@ resource "aws_launch_template" "lt" {
     local.module_tags
   )
 
-# tag_specifications {
-#   resource_type = "instance"
-#   tags = {}
-# }
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name       = local.server_name
+      ServerName = local.server_name
+    }
+  }
 
 
 }
