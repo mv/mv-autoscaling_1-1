@@ -10,6 +10,7 @@ output "asg_launch_template_name"                  { value = module.asg.asg_laun
 output "asg_launch_template_version_default"       { value = module.asg.asg_launch_template_version_default       }
 output "asg_launch_template_version_latest"        { value = module.asg.asg_launch_template_version_latest        }
 output "asg_launch_template_user_data"             { value = module.asg.asg_launch_template_user_data             }
+output "asg_launch_template_block_device_mappings" { value = module.asg.asg_launch_template_block_device_mappings }
 
 output "asg_security_group_id" { value = module.asg.asg_security_group_id }
 

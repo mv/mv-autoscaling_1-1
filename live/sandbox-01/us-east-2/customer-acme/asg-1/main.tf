@@ -10,6 +10,31 @@ module "asg" {
   vpc_zone_identifier = var.vpc_zone_identifier
 
   ssm_path = "/app/asg/${var.customer}/ami"
+  block_device_mappings = [
+    {
+      device_name = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
+      no_device   = 0
+      ebs = {
+        volume_size = 10
+        volume_type = "gp3"
+        encrypted   = false
+        delete_on_termination = true
+      }
+    },
+    {
+      device_name = "/dev/xvdb"     # data: by type: PV: from /dev/sdf|HVM: from /dev/xvdb onwards
+      no_device   = 1
+      ebs = {
+        volume_size = 20
+        volume_type = "gp3"
+        encrypted   = false
+        delete_on_termination = true
+      }
+    }
+  ]
+
+##
+## Launch Template: deploy stuff
 
 # iam_role_policies = {
 #   ReadOnlyAccess = "arn:aws:iam::aws:policy/ReadOnlyAccess"               # SSM: parameter store
