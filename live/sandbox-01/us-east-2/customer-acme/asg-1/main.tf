@@ -9,7 +9,8 @@ module "asg" {
   lb_target_group_arn = var.lb_target_group_arn
   vpc_zone_identifier = var.vpc_zone_identifier
 
-  ssm_path = "/app/asg/${var.customer}/ami"
+  ami_ssm_path = "/app/asg/${var.customer}/ami"
+
   block_device_mappings = [
     {
       device_name = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
