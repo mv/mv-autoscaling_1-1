@@ -20,3 +20,5 @@ output "asg_iam_instance_profile_id"              { value = module.asg.asg_iam_i
 output "asg_iam_role_name"                        { value = module.asg.asg_iam_role_name             }
 output "asg_iam_role_arn"                         { value = module.asg.asg_iam_role_arn              }
 output "asg_iam_role_description"                 { value = module.asg.asg_iam_role_description      }
+output "asg_iam_role_policy_attachment"           { value = module.asg.asg_iam_role_policy_attachment }
+output "asg_iam_role_policy_inline"               { value = module.asg.asg_iam_role_policy_inline    }

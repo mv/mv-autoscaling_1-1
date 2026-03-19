@@ -20,6 +20,20 @@ output "asg_iam_role_all"                         { value = aws_iam_role.role }
 output "asg_iam_role_name"                        { value = aws_iam_role.role.name }
 output "asg_iam_role_arn"                         { value = aws_iam_role.role.arn  }
 output "asg_iam_role_description"                 { value = aws_iam_role.role.description  }
+output "asg_iam_role_policy_inline"               { value = aws_iam_role.role.inline_policy  }
+
+output "asg_iam_role_policy_attachment_all"       { value = aws_iam_role_policy_attachment.policy }
+
+output "asg_iam_role_policy_attachment" {
+  value = {
+    for k in keys(aws_iam_role_policy_attachment.policy):
+      k => tomap({
+#       "id"         = aws_iam_role_policy_attachment.policy[k].id
+        "policy_arn" = aws_iam_role_policy_attachment.policy[k].policy_arn
+      })
+  }
+}
+
 
 
 /****
