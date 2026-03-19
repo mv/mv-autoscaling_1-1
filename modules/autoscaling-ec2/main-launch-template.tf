@@ -31,11 +31,13 @@ resource "aws_launch_template" "lt" {
   ##
   ## Network
   ##
-  network_interfaces {
-    associate_public_ip_address = false
-    delete_on_termination       = true
-    description                 = "ENI: ASG: ${var.customer}"
-  }
+# network_interfaces {
+#   description     = "ENI: ASG: ${var.customer}"
+#   security_groups = [aws_security_group.sg.id]
+
+#   associate_public_ip_address = false
+#   delete_on_termination       = true
+# }
 
   vpc_security_group_ids = [aws_security_group.sg.id]
 
