@@ -11,4 +11,4 @@ variable "vpc_zone_identifier" {
   default = []
 }
 
-variable "user_data" { default = ""}
+variable "user_data" { default = "" }

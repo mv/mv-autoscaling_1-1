@@ -43,6 +43,19 @@ module "asg" {
 
 
 # user_data = ""
+  user_data = <<-EOT
+    #!/bin/bash
+
+    echo "Start: $(date)" >> /tmp/userdata.log
+    echo                  >> /tmp/userdata.log
+
+    sudo yum install -y httpd | tee -a /tmp/userdata.log
+    sudo service httpd start  | tee -a /tmp/userdata.log
+
+    echo                >> /tmp/userdata.log
+    echo "End: $(date)" >> /tmp/userdata.log
+
+  EOT
 # user_data = filebase64(var.user_data)
 
   tags = {
