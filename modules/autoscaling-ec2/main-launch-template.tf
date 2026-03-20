@@ -3,7 +3,9 @@
 # vim: set ft=terraform:
 
 locals {
-  server_name = "ec2-${var.customer}-${formatdate("YYYY-MM-DD-hh.mm.ss", timestamp())}"
+  time_now    = timestamp()
+  time_brt    = timeadd(local.time_now, "-3h" )
+  server_name = "ec2-${var.customer}-${formatdate("YYYY-MM-DD-hh.mm.ss", local.time_brt)}-BRT"
 }
 
 resource "aws_launch_template" "lt" {
