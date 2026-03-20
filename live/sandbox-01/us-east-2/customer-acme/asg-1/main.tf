@@ -13,8 +13,8 @@ module "asg" {
 
   block_device_mappings = [
     {
-      device_name = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
-      no_device   = 0
+      device_name  = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
+      no_device    = 0
       ebs = {
         volume_size = 10
         volume_type = "gp3"
@@ -23,8 +23,8 @@ module "asg" {
       }
     },
     {
-      device_name = "/dev/xvdb"     # data: by type: PV: from /dev/sdf|HVM: from /dev/xvdb onwards
-      no_device   = 1
+      device_name  = "/dev/xvdb"     # data: by type: PV: from /dev/sdf|HVM: from /dev/xvdb onwards
+      no_device    = 1
       ebs = {
         volume_size = 20
         volume_type = "gp3"
