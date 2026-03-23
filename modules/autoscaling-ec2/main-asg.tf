@@ -30,16 +30,19 @@ resource "aws_autoscaling_group" "asg" {
   # max: 31,536,000s = 365d
   max_instance_lifetime = 31536000
 
-  vpc_zone_identifier = var.vpc_zone_identifier
 
-  health_check_type         = "EC2"  # EC2, ELB
+  health_check_type         = "EC2"  # EC2, ELB, EBS
   health_check_grace_period = 300
 # force_delete              = true
 
   # ASG: extra group metrics to collect
+  # Ref:
+  #  https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html
   enabled_metrics = var.asg_enabled_metrics ? local.asg_enabled_metrics : []
 
-  target_group_arns = [ var.lb_target_group_arn ]
+
+  vpc_zone_identifier = var.vpc_zone_identifier
+  target_group_arns   = [ var.lb_target_group_arn ]
 
 # # LB: via Traffic source attachment
 # traffic_source_attachments = {

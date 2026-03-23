@@ -11,7 +11,10 @@ module "asg" {
 
   ami_ssm_path = "/app/asg/${var.customer}/ami"
 
+  # Ref: https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html
   asg_enabled_metrics    = true  # ASG extra metrics
+
+  # Ref: https://docs.aws.amazon.com/autoscaling/ec2/userguide/enable-as-instance-metrics.html
   lt_detailed_monitoring = true  # EC2 1 minute metrics
 
   block_device_mappings = [
