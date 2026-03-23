@@ -5,6 +5,14 @@ locals {
   name     = "asg-${var.customer}"  # "sitef-${var.name}"
   name_cap = "ASG-${var.customer}"  # "SiTef-${var.name}"
   descr    = "asg: ${var.customer}" # "SiTef: ${var.name}"
+
+  asg_enabled_metrics = [
+    "GroupInServiceInstances",
+    "GroupPendingInstances",
+    "GroupStandbyInstances",
+    "GroupTerminatingInstances",
+    "GroupTotalInstances",
+  ]
 }
 
 
@@ -24,9 +32,12 @@ resource "aws_autoscaling_group" "asg" {
 
   vpc_zone_identifier = var.vpc_zone_identifier
 
-  health_check_type         = "ELB"  # EC2, ELB
+  health_check_type         = "EC2"  # EC2, ELB
   health_check_grace_period = 300
 # force_delete              = true
+
+  # ASG: extra group metrics to collect
+  enabled_metrics = var.asg_enabled_metrics ? local.asg_enabled_metrics : []
 
   target_group_arns = [ var.lb_target_group_arn ]
 

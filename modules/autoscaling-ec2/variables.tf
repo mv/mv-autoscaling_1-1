@@ -10,6 +10,12 @@ variable "max_size"         { default = "1" }
 variable "desired_capacity" { default = "1" }
 variable "ami_ssm_path"     { default = "/app/asg/ami"   }
 
+variable "asg_enabled_metrics" {
+  type    = bool
+  default = false
+}
+
+
 ##
 ## ASG: LB
 ##
@@ -76,7 +82,7 @@ variable "block_device_mappings" {
 variable "customer"  { default = "customer" }
 variable "user_data" { default = "" }
 
-variable "detailed_monitoring" {
+variable "lt_detailed_monitoring" {
   type    = bool
   default = false
 }

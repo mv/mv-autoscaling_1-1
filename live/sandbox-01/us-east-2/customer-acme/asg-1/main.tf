@@ -11,6 +11,9 @@ module "asg" {
 
   ami_ssm_path = "/app/asg/${var.customer}/ami"
 
+  asg_enabled_metrics    = true  # ASG extra metrics
+  lt_detailed_monitoring = true  # EC2 1 minute metrics
+
   block_device_mappings = [
     {
       device_name  = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda

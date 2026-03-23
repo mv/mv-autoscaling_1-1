@@ -31,8 +31,9 @@ resource "aws_launch_template" "lt" {
 
   user_data = base64encode(var.user_data)
 
-  # detailed monitoring
-  monitoring { enabled = var.detailed_monitoring }
+  # false: EC2 basic monitoring
+  # true:  EC2 detailed monitoring
+  monitoring { enabled = var.lt_detailed_monitoring }
 
   ##
   ## Network
