@@ -11,6 +11,7 @@ output "asg_iam_role_name"                        { value = module.asg.asg_iam_r
 output "asg_iam_role_arn"                         { value = module.asg.asg_iam_role_arn              }
 output "asg_iam_role_description"                 { value = module.asg.asg_iam_role_description      }
 output "asg_iam_role_policy_attachment"           { value = module.asg.asg_iam_role_policy_attachment }
+output "asg_iam_role_policy_attachment_pos"       { value = module.asg.asg_iam_role_policy_attachment_pos }
 output "asg_iam_role_policy_inline"               { value = module.asg.asg_iam_role_policy_inline    }
 
 #utput "asg_launch_template_all"                   { value = module.asg.asg_launch_template_all                   }

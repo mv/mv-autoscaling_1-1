@@ -24,6 +24,16 @@ output "asg_iam_role_policy_attachment" {
   }
 }
 
+output "asg_iam_role_policy_attachment_pos" {
+  value = {
+    for k in keys(aws_iam_role_policy_attachment.policy_pos):
+      k => tomap({
+#       "id"         = aws_iam_role_policy_attachment.policy_pos[k].id
+        "policy_arn" = aws_iam_role_policy_attachment.policy_pos[k].policy_arn
+      })
+  }
+}
+
 output "asg_launch_template_all"                   { value = aws_launch_template.lt }
 output "asg_launch_template_arn"                   { value = aws_launch_template.lt.arn }
 output "asg_launch_template_id"                    { value = aws_launch_template.lt.id }
