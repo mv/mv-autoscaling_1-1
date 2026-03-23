@@ -13,6 +13,11 @@ variable "enable_deletion_protection" {
   default     = false
 }
 
+variable "health_check" {
+  type    = map(string)
+  default = {}
+}
+
 variable "tags" {
   type    = map(string)
   default = {}

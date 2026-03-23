@@ -39,6 +39,8 @@ module "nlb" {
       vpc_id      = var.vpc_id
 
       create_attachment = false
+
+      health_check = var.health_check
     }
 
     target_443 = {
@@ -48,6 +50,8 @@ module "nlb" {
       vpc_id      = var.vpc_id
 
       create_attachment = false
+
+      health_check = var.health_check
     }
 
   }
@@ -87,6 +91,10 @@ module "nlb" {
 # }
 
 }
+
+  ## TODO: Health Checks
+  ## Ref: https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html#health-check-settings
+  ##
 
 ##
 ## Security Group: Tag Name
