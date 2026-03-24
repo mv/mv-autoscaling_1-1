@@ -73,27 +73,22 @@ build: ## - Packer: build
 .PHONY: build-blue
 build-blue: ## - Packer: build 'blue' release
 	@echo
-	export PKR_VAR_release=blue        && \
-	source ../../bin/_check-release.sh && \
 	source ./_variables.sh             && \
-	packer init . && packer build .
+	packer init . && packer build -var="release=blue" .
 
 
 .PHONY: build-green
 build-green: ## - Packer: build 'green' release
 	@echo
-	export PKR_VAR_release=green       && \
-	source ../../bin/_check-release.sh && \
 	source ./_variables.sh             && \
-	packer init . && packer build .
+	packer init . && packer build -var="release=green" .
 
 
 .PHONY: build-release
-build-release: ## - Packer: build 'PKR_VAR_release' release
+build-release: ## - Packer: $ release=... make build-release
 	@echo
-	source ../../bin/_check-release.sh && \
 	source ./_variables.sh             && \
-	packer init . && packer build .
+	packer init . && packer build -var="release=$${release}" .
 
 
 validate: ## - Packer: build
@@ -144,20 +139,6 @@ ssm-port-forward: ## - AWS: SSM port forward: nginx-blue-green
 ################################################################################
 ##@ My AMIs
 
-
-.PHONY: list-ssh-test
-list-ssh-test: ## - list of my AMIs
-	@echo
-	aws ec2 describe-images \
-	--filters "Name=name,Values=amzn-ssh-test.*" \
-	--query 'Images[][Name,ImageId,OwnerId,CreationDate]' \
-	--output text | sort -r | column -t | head -20
-
-
-################################################################################
-##@ Amazon AMIs
-
-
 .PHONY: list-machine
 list-machine: ## - My built machine
 	@echo
@@ -166,6 +147,11 @@ list-machine: ## - My built machine
 	--query   'Images[][Name,ImageId,OwnerId,ImageOwnerAlias,CreationDate]' \
 	--output text | column -t | sort -k 5 -r
 #	--filters "Name=owner-alias,Values=amazon"  \
+
+
+################################################################################
+##@ Amazon AMIs
+
 
 .PHONY: list-al2023
 list-al2023: ## - AMZN: list of 'al2023'
