@@ -2,7 +2,7 @@
 ## tfvars: sample
 ##
 
-customer = "acme"
+customer = "sample"
 
 vpc_id  = "vpc_vpcid"
 subnets = [
