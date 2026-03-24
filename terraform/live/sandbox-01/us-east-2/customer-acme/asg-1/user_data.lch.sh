@@ -2,6 +2,8 @@
 
 # Ref:
 #   https://docs.aws.amazon.com/autoscaling/ec2/userguide/tutorial-lifecycle-hook-instance-metadata.html
+#   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+#   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html#allow-access-to-tags-in-IMDS
 
 function get_token {
   echo "X-aws-ec2-metadata-token: $(curl -s -X PUT 'http://169.254.169.254/latest/api/token' -H 'X-aws-ec2-metadata-token-ttl-seconds: 21600')"

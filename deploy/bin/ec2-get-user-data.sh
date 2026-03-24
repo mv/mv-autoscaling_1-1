@@ -4,7 +4,7 @@
   echo
   echo "Usage: $0 <instance-id>"
   echo
-  exit 1
+  exit 2
 }
 
 _instance_id="${1}"
