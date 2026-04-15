@@ -7,7 +7,9 @@ module "nlb" {
   ## NLB
   ##
   load_balancer_type = "network"
-  name               = var.nlb_name
+  internal           = true
+
+  name               = var.name
   vpc_id             = var.vpc_id  # "vpc-abcde012"
   subnets            = var.subnets # ["subnet-abcde012", "subnet-bcde012a"]
 
@@ -59,29 +61,8 @@ module "nlb" {
   ##
   ## LB: Security Group
   ##
-  enforce_security_group_inbound_rules_on_private_link_traffic = "on"
-  security_group_ingress_rules = {
-    all_http = {
-      from_port   = 80
-      to_port     = 80
-      ip_protocol = "tcp"
-      description = "HTTP web traffic"
-      cidr_ipv4   = "0.0.0.0/0"
-    }
-    all_https = {
-      from_port   = 443
-      to_port     = 443
-      ip_protocol = "tcp"
-      description = "HTTPS web traffic"
-      cidr_ipv4   = "0.0.0.0/0"
-    }
-  }
-  security_group_egress_rules = {
-    all = {
-      ip_protocol = "-1"
-      cidr_ipv4   = "0.0.0.0/0" # "10.0.0.0/16"
-    }
-  }
+  create_security_group = false
+  security_groups       = [aws_security_group.sg.id]  # use my 'sg'
 
   ##
   ## TODO: LB Access Logs
@@ -100,7 +81,7 @@ module "nlb" {
 ## Security Group: Tag Name
 ##
 resource "aws_ec2_tag" "nlb_sg_name" {
-  resource_id = module.nlb.security_group_id
+  resource_id = aws_security_group.sg.id
   key         = "Name"
-  value       = var.nlb_name
+  value       = var.name
 }

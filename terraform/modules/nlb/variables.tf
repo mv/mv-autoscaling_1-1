@@ -1,7 +1,6 @@
 
-variable "nlb_name" { default = "nlb-bg-01" }
-
-variable "vpc_id"  {}
+variable "name"   {}
+variable "vpc_id" {}
 
 variable "subnets" {
   type = list(string)
