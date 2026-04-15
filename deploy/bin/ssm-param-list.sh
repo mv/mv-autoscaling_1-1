@@ -7,7 +7,7 @@
   exit 1
 }
 
-aws ssm describe-parameters --query 'Parameters[].Name' --output json \
+aws ssm describe-parameters --query 'Parameters[].Name' --output json --filters 'Key=Name,Values=/app/asg' \
     | jq '.[]' |tr -d '"' \
     | while read _param
       do
