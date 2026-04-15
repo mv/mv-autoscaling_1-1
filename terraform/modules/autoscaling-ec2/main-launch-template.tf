@@ -17,7 +17,9 @@ resource "aws_launch_template" "lt" {
   ##
   instance_type = var.instance_type
   key_name      = var.key_name
-  image_id      = var.ami_id
+# image_id      = var.ami_id
+  image_id      = coalesce(var.ami_id,"resolve:ssm:${var.ami_ssm_path}")
+                # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id
 
   iam_instance_profile {
     arn = aws_iam_instance_profile.profile.arn

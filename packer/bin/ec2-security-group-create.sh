@@ -11,9 +11,12 @@
 vpc_id="${1}"
 
 ## Rules
+##  { "IpProtocol":"tcp","FromPort": 22,"ToPort": 22 , "IpRanges":[ { "CidrIp":"0.0.0.0/0","Description":"SSH Access"} ] },
 _ingress='
 [
-  { "IpProtocol":"tcp","FromPort": 22,"ToPort": 22 , "IpRanges":[ { "CidrIp":"0.0.0.0/0","Description":"SSH Access"} ] },
+  { "IpProtocol":"tcp","FromPort": 22,"ToPort": 22 , "IpRanges":[ { "CidrIp":"10.0.0.0/8","Description":"SSH Access"} ] },
+  { "IpProtocol":"tcp","FromPort": 22,"ToPort": 22 , "IpRanges":[ { "CidrIp":"172.16.0.0/12","Description":"SSH Access"} ] },
+  { "IpProtocol":"tcp","FromPort": 22,"ToPort": 22 , "IpRanges":[ { "CidrIp":"192.168.0.0/16","Description":"SSH Access"} ] },
   { "IpProtocol":"tcp","FromPort": 80,"ToPort": 80 , "IpRanges":[ { "CidrIp":"0.0.0.0/0","Description":"HTTP Access"} ] },
   { "IpProtocol":"tcp","FromPort":443,"ToPort":443 , "IpRanges":[ { "CidrIp":"0.0.0.0/0","Description":"HTTPS Access"} ] }
 ]'

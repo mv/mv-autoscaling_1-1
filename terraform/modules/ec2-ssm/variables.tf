@@ -1,7 +1,8 @@
 
 variable "name"          { default = "ssm-server" }
 variable "instance_type" { default = "t3.micro"   }
-variable "subnet_id"     {}
+
+variable "subnet_id" {}
 
 variable "root_block_device" {
   type = object({

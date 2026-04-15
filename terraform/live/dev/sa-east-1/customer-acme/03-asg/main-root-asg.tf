@@ -1,0 +1,75 @@
+/***/
+module "asg" {
+  source = "../../../../../modules/autoscaling-ec2"
+
+  customer            = var.customer
+  instance_type       = var.instance_type
+  ami_id              = var.ami_id
+
+# lb_target_group_arn = var.lb_target_group_arn
+  lb_target_group_arn = data.terraform_remote_state.nlb.outputs.target_groups_data.target_80.arn
+  vpc_zone_identifier = data.aws_subnets.priv.ids
+
+  ami_ssm_path = "/app/asg/${var.customer}/ami"
+
+  # Ref: https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html
+  asg_enabled_metrics    = true  # ASG extra metrics
+
+  # Ref: https://docs.aws.amazon.com/autoscaling/ec2/userguide/enable-as-instance-metrics.html
+  lt_detailed_monitoring = true  # EC2 1 minute metrics
+
+  block_device_mappings = [
+    {
+      device_name  = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
+      no_device    = 0
+      ebs = {
+        volume_size = 10
+        volume_type = "gp3"
+        encrypted   = false
+        delete_on_termination = true
+      }
+    },
+    {
+      device_name  = "/dev/xvdb"     # data: by type: PV: from /dev/sdf|HVM: from /dev/xvdb onwards
+      no_device    = 1
+      ebs = {
+        volume_size = 20
+        volume_type = "gp3"
+        encrypted   = false
+        delete_on_termination = true
+      }
+    }
+  ]
+
+##
+## Launch Template: deploy stuff
+
+# iam_role_policies = {
+#   ReadOnlyAccess = "arn:aws:iam::aws:policy/ReadOnlyAccess"               # SSM: parameter store
+# }
+
+
+# user_data = ""
+  user_data = <<-EOT
+    #!/bin/bash
+
+    echo "Start: $(date)" >> /tmp/userdata.log
+    echo                  >> /tmp/userdata.log
+
+    sudo yum install -y httpd | tee -a /tmp/userdata.log
+    sudo service httpd start  | tee -a /tmp/userdata.log
+
+    echo                >> /tmp/userdata.log
+    echo "End: $(date)" >> /tmp/userdata.log
+
+  EOT
+# user_data = filebase64(var.user_data)
+
+  tags = {
+    "asg:env"     = "dev"
+    "asg:customer" = var.customer
+  }
+
+}
+
+/***/

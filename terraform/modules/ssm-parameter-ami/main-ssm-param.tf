@@ -11,10 +11,10 @@
 ##
 resource "aws_ssm_parameter" "asg_ami" {
   name           = var.ssm_path
-  insecure_value = coalesce(var.ami_id, data.aws_ami.al2023.id)
+  description    = "ASG: deploy AMI"
   type           = "String"
   data_type      = "aws:ec2:image"
-  description    = "ASG: deploy AMI"
+  insecure_value = coalesce(var.ami_id, data.aws_ami.al2023.id)
 
   # ignore future changes to 'value': deploy via new AMI updates into 'latest'
   lifecycle { ignore_changes = [ insecure_value ] }

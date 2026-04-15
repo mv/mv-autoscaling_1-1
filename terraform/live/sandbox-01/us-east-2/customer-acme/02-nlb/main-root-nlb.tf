@@ -2,7 +2,7 @@
 module "nlb" {
   source  = "../../../../../modules/nlb"
 
-  nlb_name = "nlb-${var.customer}"
+  name     = "nlb-${var.customer}"
   vpc_id   = var.vpc_id  # "vpc-abcde012"
   subnets  = var.subnets # ["subnet-abcde012", "subnet-bcde012a"]
 
