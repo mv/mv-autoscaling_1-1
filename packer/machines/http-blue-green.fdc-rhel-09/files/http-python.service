@@ -1,0 +1,19 @@
+# vscode-modelines
+# vim: set ft=systemd:
+
+[Unit]
+Description=Simple Python HTTP server
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/run/http-python.pid
+#xecStart=/usr/bin/python -m http.server 8000 --directory /var/www/
+ExecStart=/usr/bin/python -m http.server 80 --directory /var/www/
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+

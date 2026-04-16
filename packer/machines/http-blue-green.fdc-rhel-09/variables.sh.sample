@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# vscode-modelines
+# vim: set ft=bash:
+
+usage() {
+  echo
+  echo "Usage: source $0"
+  echo
+  echo "This file must be 'sourced'"
+  echo "  $ source $0"
+  echo
+  exit 1
+}
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && usage
+
+echo
+echo "== Sourcing: [_variables.sh]"
+echo
+
+
+export PKR_VAR_vpc_id="vpc-vpcid"
+export PKR_VAR_subnet_id="subnet-subnetid"
+export PKR_VAR_sg_id= "sg-sgid"     # vpc:default/all-all
+
+#xport PKR_VAR_iam_instance_profile="Packer-Instance-Profile"
