@@ -3,10 +3,11 @@
 module "nlb" {
   source  = "../../../../../modules/nlb"
 
-  name     = "nlb-${var.customer}"
-  vpc_id   = var.vpc_id  # "vpc-abcde012"
-# subnets  = coalesce(var.subnets, data.aws_subnets.priv.ids) # ["subnet-abcde012", "subnet-bcde012a"]
+  name     = var.customer
+  vpc_id   = data.aws_vpc.vpc.id
   subnets  = data.aws_subnets.priv.ids
+# vpc_id   = var.vpc_id  # "vpc-abcde012"
+# subnets  = coalesce(var.subnets, data.aws_subnets.priv.ids) # ["subnet-abcde012", "subnet-bcde012a"]
 
 
   enable_deletion_protection = false

@@ -50,5 +50,8 @@ output "target_groups_data" {
 
 #utput "route53_records_all" { value = module.nlb.route53_records }
 
+#utput "nlb_sg_all"  { value = module.nlb.nlb_sg_all  }
+output "nlb_sg_name" { value = module.nlb.nlb_sg_name }
+
 
 /****/

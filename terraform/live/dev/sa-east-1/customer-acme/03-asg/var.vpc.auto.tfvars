@@ -1,1 +1,1 @@
-../../vpc.tfvars
+../../var.vpc.auto.tfvars

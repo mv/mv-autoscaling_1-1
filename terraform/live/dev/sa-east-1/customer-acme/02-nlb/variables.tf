@@ -1,7 +1,6 @@
 
 variable "customer" { default = "customer"  }
-
-variable "vpc_id"  {}
+variable "vpc_id"   { default = "" }
 
 # variable "subnets" {
 #   type = list(string)
@@ -9,5 +8,6 @@ variable "vpc_id"  {}
 # }
 
 
-# filter to discover subnet_id
+# self discovery (using ../common.auto.tfvars)
+variable "vpc_name_tag"    { default = "" }
 variable "subnet_priv_tag" { default = "" }

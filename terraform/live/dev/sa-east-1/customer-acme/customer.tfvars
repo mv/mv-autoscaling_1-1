@@ -1,5 +1,0 @@
-##
-## tfvars: sample
-##
-
-customer = "acme"

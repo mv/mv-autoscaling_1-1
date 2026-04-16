@@ -1,8 +1,9 @@
 
 variable "customer"      { default = "acme" }
-variable "instance_type" { default = "t3.micro"   }
+variable "vpc_id"        { default = "" }
 
-variable "ami_id" { default = "" } # default: use from 'ssm:parameter'
+variable "instance_type" { default = "t3.micro"   }
+variable "ami_id"        { default = "" } # default: use from 'ssm:parameter'
 
 variable "lb_target_group_arn" { default = "" }
 
@@ -14,5 +15,5 @@ variable "lb_target_group_arn" { default = "" }
 variable "user_data" { default = "" }
 
 # self discovery (using ../common.auto.tfvars)
-variable "vpc_id"          { default = "" }
+variable "vpc_name_tag"    { default = "" }
 variable "subnet_priv_tag" { default = "" }

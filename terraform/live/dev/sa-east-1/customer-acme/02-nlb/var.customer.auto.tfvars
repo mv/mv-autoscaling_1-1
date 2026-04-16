@@ -1,1 +1,1 @@
-../customer.tfvars
+../var.customer.auto.tfvars

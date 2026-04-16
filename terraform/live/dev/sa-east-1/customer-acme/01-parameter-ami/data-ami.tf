@@ -1,15 +1,13 @@
 # vscode-modelines
 # vim: set ft=terraform:
 
-data "aws_ami" "al2023" {
+data "aws_ami" "ami" {
   most_recent = true
-  owners      = ["amazon"]
+  owners      = [var.ami_owners]
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023*"] # Amazon Linux 2023
-    #   values = ["al2023-ami-minimal-*"]   # Amazon Linux 2023: minimal
-    #   values = ["amzn2-ami-minimal-hvm*"] # Amazon Linux 2
+    values = ["${var.ami_name}*"]
   }
 
   filter {
@@ -22,3 +20,5 @@ data "aws_ami" "al2023" {
     values = ["x86_64"]
   }
 }
+
+# output "data_ami" { value = data.aws_ami.ami }

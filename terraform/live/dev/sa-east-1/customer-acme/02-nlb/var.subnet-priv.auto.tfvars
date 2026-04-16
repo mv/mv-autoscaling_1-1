@@ -1,1 +1,1 @@
-../../subnet-priv.tfvars
+../../var.subnet-priv.auto.tfvars
