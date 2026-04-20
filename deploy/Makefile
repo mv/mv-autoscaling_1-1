@@ -106,3 +106,19 @@ list-win: ## - AMZN: list of 'win'
 	--filters "Name=name,Values=Windows_Server-2025*-English*"  \
 	--query   'Images[][Name,ImageId,OwnerId,ImageOwnerAlias,CreationDate]' \
 	--output text | column -t | sort
+
+.PHONY: list-http
+list-http: ## - AMZN: list of 'http-*.fdc*'
+	@echo
+	aws ec2 describe-images \
+	--filters "Name=name,Values=http*fdc*"  \
+	--query   'Images[][Name,ImageId,OwnerId,ImageOwnerAlias,CreationDate]' \
+	--output text | column -t | sort -k 5
+
+.PHONY: list-fdc-rhel-09
+list-fdc-rhel-09: ## - AMZN: list of 'fdc-rhel'
+	@echo
+	aws ec2 describe-images \
+	--filters "Name=name,Values=FDC-RHEL-9*-Build-2026-??-??"  \
+	--query   'Images[][Name,ImageId,OwnerId,ImageOwnerAlias,CreationDate]' \
+	--output text | column -t | sort
