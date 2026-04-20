@@ -1,1 +1,0 @@
-../var.ami.auto.tfvars
