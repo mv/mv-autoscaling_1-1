@@ -5,6 +5,7 @@ module "asg" {
   customer            = var.customer
   instance_type       = var.instance_type
   ami_id              = var.ami_id
+  key_name            = var.key_name
 
 # lb_target_group_arn = var.lb_target_group_arn
   lb_target_group_arn = data.terraform_remote_state.nlb.outputs.target_groups_data.target_80.arn

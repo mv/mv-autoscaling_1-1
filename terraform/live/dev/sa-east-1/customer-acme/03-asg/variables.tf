@@ -5,6 +5,8 @@ variable "vpc_id"        { default = "" }
 variable "instance_type" { default = "t3.micro"   }
 variable "ami_id"        { default = "" } # default: use from 'ssm:parameter'
 
+variable "key_name"      { default = "" }
+
 variable "lb_target_group_arn" { default = "" }
 
 # variable "vpc_zone_identifier" {
