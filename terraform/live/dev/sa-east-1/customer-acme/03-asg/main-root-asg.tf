@@ -19,6 +19,8 @@ module "asg" {
   # Ref: https://docs.aws.amazon.com/autoscaling/ec2/userguide/enable-as-instance-metrics.html
   lt_detailed_monitoring = true  # EC2 1 minute metrics
 
+  block_device_mappings = []
+/****
   block_device_mappings = [
     {
       device_name  = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
@@ -41,6 +43,7 @@ module "asg" {
       }
     }
   ]
+/****/
 
 ##
 ## Launch Template: deploy stuff
@@ -57,8 +60,22 @@ module "asg" {
     echo "Start: $(date)" >> /tmp/userdata.log
     echo                  >> /tmp/userdata.log
 
-    sudo yum install -y httpd | tee -a /tmp/userdata.log
-    sudo service httpd start  | tee -a /tmp/userdata.log
+#   sudo yum install -y httpd | tee -a /tmp/userdata.log
+#   sudo service httpd start  | tee -a /tmp/userdata.log
+
+    cat > /etc/profile.d/noproxy.sh <<EOF
+    ##
+    no_proxy=169.254.169.254,100.99.0.0/16
+    NO_PROXY=169.254.169.254,100.99.0.0/16
+    ##
+    EOF
+
+    cat >> /etc/bashrc <<EOF
+
+    set -o vi
+    alias env='env | sort'
+
+    EOF
 
     echo                >> /tmp/userdata.log
     echo "End: $(date)" >> /tmp/userdata.log

@@ -6,10 +6,12 @@ locals {
     ssh_10   = { from =   22, to=22  , protocol = "tcp" , cidr = "10.0.0.0/8"     }
     ssh_172  = { from =   22, to=22  , protocol = "tcp" , cidr = "172.16.0.0/12"  }
     ssh_192  = { from =   22, to=22  , protocol = "tcp" , cidr = "192.168.0.0/16" }
+    ssh_100  = { from =   22, to=22  , protocol = "tcp" , cidr = "100.99.0.0/16"  }
 #   ping     = { from =    8, to=0   , protocol = "icmp", cidr = "0.0.0.0/0" } # echo_request: type=8, code=0
-    ping_10  = { from =    8, to=8   , protocol = "icmp", cidr = "10.0.0.0/8"     }
-    ping_172 = { from =    8, to=8   , protocol = "icmp", cidr = "172.16.0.0/12"  }
-    ping_192 = { from =    8, to=8   , protocol = "icmp", cidr = "192.168.0.0/16" }
+    ping_10  = { from =   -1, to=-1  , protocol = "icmp", cidr = "10.0.0.0/8"     }
+    ping_172 = { from =   -1, to=-1  , protocol = "icmp", cidr = "172.16.0.0/12"  }
+    ping_192 = { from =   -1, to=-1  , protocol = "icmp", cidr = "192.168.0.0/16" }
+    ping_100 = { from =   -1, to=-1  , protocol = "icmp", cidr = "100.99.0.0/16"  }
   }
   egress = {
     ssm     = { from =  443, to=443  , protocol = "tcp" , cidr = "0.0.0.0/0" } # explicit
