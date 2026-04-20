@@ -1,31 +1,30 @@
 # vscode-modelines
 # vim: set ft=terraform:
+
+output "security_group_id" { value = module.asg.security_group_id }
+
+#utput "iam_instance_profile_all"             { value = module.asg.iam_instance_profile_arn  }
+output "iam_instance_profile_arn"             { value = module.asg.iam_instance_profile_arn  }
+output "iam_instance_profile_id"              { value = module.asg.iam_instance_profile_id   }
+#utput "iam_role_all"                         { value = module.asg.iam_role_all              }
+output "iam_role_name"                        { value = module.asg.iam_role_name             }
+output "iam_role_arn"                         { value = module.asg.iam_role_arn              }
+output "iam_role_description"                 { value = module.asg.iam_role_description      }
+output "iam_role_policy_attachment"           { value = module.asg.iam_role_policy_attachment }
+output "iam_role_policy_inline"               { value = module.asg.iam_role_policy_inline    }
+
+#utput "launch_template_all"                   { value = module.asg.launch_template_all                   }
+output "launch_template_arn"                   { value = module.asg.launch_template_arn                   }
+output "launch_template_id"                    { value = module.asg.launch_template_id                    }
+output "launch_template_block_device_mappings" { value = module.asg.launch_template_block_device_mappings }
+output "launch_template_instance_type"         { value = module.asg.launch_template_instance_type         }
+output "launch_template_name"                  { value = module.asg.launch_template_name                  }
+output "launch_template_version_default"       { value = module.asg.launch_template_version_default       }
+output "launch_template_version_latest"        { value = module.asg.launch_template_version_latest        }
+output "launch_template_user_data"             { value = module.asg.launch_template_user_data             }
+output "launch_template_user_data_decode"      { value = base64decode(module.asg.launch_template_user_data) }
+
 /****
-
-output "asg_security_group_id" { value = module.asg.asg_security_group_id }
-
-#utput "asg_iam_instance_profile_all"             { value = module.asg.asg_iam_instance_profile_arn  }
-output "asg_iam_instance_profile_arn"             { value = module.asg.asg_iam_instance_profile_arn  }
-output "asg_iam_instance_profile_id"              { value = module.asg.asg_iam_instance_profile_id   }
-#utput "asg_iam_role_all"                         { value = module.asg.asg_iam_role_all              }
-output "asg_iam_role_name"                        { value = module.asg.asg_iam_role_name             }
-output "asg_iam_role_arn"                         { value = module.asg.asg_iam_role_arn              }
-output "asg_iam_role_description"                 { value = module.asg.asg_iam_role_description      }
-output "asg_iam_role_policy_attachment"           { value = module.asg.asg_iam_role_policy_attachment }
-output "asg_iam_role_policy_attachment_pos"       { value = module.asg.asg_iam_role_policy_attachment_pos }
-output "asg_iam_role_policy_inline"               { value = module.asg.asg_iam_role_policy_inline    }
-
-#utput "asg_launch_template_all"                   { value = module.asg.asg_launch_template_all                   }
-output "asg_launch_template_arn"                   { value = module.asg.asg_launch_template_arn                   }
-output "asg_launch_template_id"                    { value = module.asg.asg_launch_template_id                    }
-output "asg_launch_template_block_device_mappings" { value = module.asg.asg_launch_template_block_device_mappings }
-output "asg_launch_template_instance_type"         { value = module.asg.asg_launch_template_instance_type         }
-output "asg_launch_template_name"                  { value = module.asg.asg_launch_template_name                  }
-output "asg_launch_template_version_default"       { value = module.asg.asg_launch_template_version_default       }
-output "asg_launch_template_version_latest"        { value = module.asg.asg_launch_template_version_latest        }
-output "asg_launch_template_user_data"             { value = module.asg.asg_launch_template_user_data             }
-output "asg_launch_template_user_data_decode"      { value = base64decode(module.asg.asg_launch_template_user_data) }
-
 output "asg_as_info_arn"                        { value = module.asg.asg_info_arn                        }
 output "asg_as_info_id"                         { value = module.asg.asg_info_id                         }
 output "asg_as_info_name"                       { value = module.asg.asg_info_name                       }
@@ -48,3 +47,5 @@ output "asg_policy_arns"                     { value = module.asg.asg_policy_arn
 output "asg_schedule_arns"                   { value = module.asg.asg_schedule_arns                   }
 /****/
 
+
+#   output "asg_iam_role_policy_attachment_pos"       { value = module.asg.asg_iam_role_policy_attachment_pos }

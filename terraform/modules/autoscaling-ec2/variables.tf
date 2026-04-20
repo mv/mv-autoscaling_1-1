@@ -52,6 +52,12 @@ variable "iam_role_policies" {
 ##
 variable "block_device_mappings" {
   type = list(any)
+  default = []
+}
+
+/****
+variable "block_device_mappings" {
+  type = list(any)
   default = [
     {
       device_name  = "/dev/xvda"    # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
@@ -75,6 +81,7 @@ variable "block_device_mappings" {
     }
   ]
 }
+/****/
 
 ##
 ## Launch Template: deploy stuff

@@ -15,6 +15,7 @@ locals {
   ]
 }
 
+/****
 
 resource "aws_autoscaling_group" "asg" {
   name = local.name
@@ -117,3 +118,4 @@ resource "aws_autoscaling_group" "asg" {
   }
 
 }
+/****/

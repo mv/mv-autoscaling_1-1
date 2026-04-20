@@ -59,6 +59,16 @@ resource "aws_launch_template" "lt" {
   ### Ref:
   ###   https://github.com/terraform-aws-modules/terraform-aws-autoscaling/blob/648715a2c789590b9bd1a98d03d021d6efef774e/main.tf#L676
   ###
+# block_device_mappings {
+#   device_name  = "/dev/xvda"     # root: by AMI: PV:/dev/sda1|HVM: /dev/xvda
+#   ebs {
+#     volume_size = 10
+#     volume_type = "gp3"
+#     delete_on_termination = true
+#   }
+# }
+
+/****/
   dynamic "block_device_mappings" {
     for_each = var.block_device_mappings != null ? var.block_device_mappings : []
     content {
@@ -78,6 +88,7 @@ resource "aws_launch_template" "lt" {
 
     } # content
   } # dynamic
+/****/
 
   tags = merge(
     var.tags,

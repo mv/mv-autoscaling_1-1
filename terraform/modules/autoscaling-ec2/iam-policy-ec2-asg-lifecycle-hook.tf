@@ -7,6 +7,7 @@
 ##
 
 
+/****
 ## Allow policy
 resource "aws_iam_policy" "asg_complete_lifecycle" {
   name        = "ASG-Complete-Lifecycle-${local.name}"
