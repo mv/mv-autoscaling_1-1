@@ -1,6 +1,7 @@
 
 variable "name"          { default = "ssm-server" }
 variable "instance_type" { default = "t3.micro"   }
+variable "ami_id"        { default = "" }
 
 variable "subnet_id" {}
 

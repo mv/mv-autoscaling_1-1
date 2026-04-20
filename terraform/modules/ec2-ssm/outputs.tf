@@ -1,7 +1,4 @@
 
-output "ec2_ami_id"            { value = data.aws_ami.al2023.id }
-output "ec2_ami_name"          { value = data.aws_ami.al2023.name }
-output "ec2_ami_description"   { value = data.aws_ami.al2023.description }
 output "ec2_instance_id"       { value = module.ec2.id }
 output "ec2_private_ip"        { value = module.ec2.private_ip }
 output "ec2_public_ip"         { value = module.ec2.public_ip  }
@@ -24,3 +21,8 @@ output "ssm_connection_info"   { value = var.ssm_connection_info }
 # output "path_root"   { value = "${path.root}" }
 # output "path_module" { value = "${path.module}" }
 # output "path_cwd"    { value = "${path.cwd}" }
+
+output "data_ami_id"  { value = data.aws_ami.al2023.id }
+output "var_ami_id"   { value = var.ami_id }
+
+

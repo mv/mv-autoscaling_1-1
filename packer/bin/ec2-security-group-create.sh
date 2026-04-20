@@ -3,7 +3,7 @@
 
 [ "${1}" == "" ] && {
   echo
-  echo "Usage: $0 <vpc-id>"
+  echo "Usage: $0 vpc-id"
   echo
   exit 1
 }

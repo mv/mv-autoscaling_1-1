@@ -7,7 +7,8 @@ locals {
 
   build_date = formatdate("YYYY-MM-DD",timestamp())
   src_name   = "fdc-rhel-09.${local.build_date}.{{timestamp}}"
-  ami_name   = "http-${var.release}.${local.src_name}"
+  ami_name   = "http.${local.src_name}.${var.release}"
+# ami_name   = "http-${var.release}.${local.src_name}"
 }
 
 ##

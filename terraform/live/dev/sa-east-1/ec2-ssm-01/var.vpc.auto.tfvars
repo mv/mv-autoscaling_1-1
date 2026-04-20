@@ -1,0 +1,1 @@
+../var.vpc.auto.tfvars

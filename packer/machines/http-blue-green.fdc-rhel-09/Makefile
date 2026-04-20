@@ -198,6 +198,6 @@ list-fdc-rhel-09-all: ## - AMZN: list of 'fdc-rhel'
 list-http: ## - AMZN: list of 'http-*.fdc*'
 	@echo
 	aws ec2 describe-images \
-	--filters "Name=name,Values=http-*.fdc*"  \
+	--filters "Name=name,Values=http*fdc*"  \
 	--query   'Images[][Name,ImageId,OwnerId,ImageOwnerAlias,CreationDate]' \
 	--output text | column -t | sort -k 5

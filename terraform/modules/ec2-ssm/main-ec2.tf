@@ -6,7 +6,7 @@ module "ec2" {
   name          = var.name
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
-  ami           = data.aws_ami.al2023.id
+  ami           = coalesce(var.ami_id, data.aws_ami.al2023.id)
 
 # root_block_device = var.root_block_device
 
@@ -19,6 +19,7 @@ module "ec2" {
   }
 
   # My SG
+  create_security_group  = false
   vpc_security_group_ids = [aws_security_group.sg.id]
 
   ## SSM
@@ -38,15 +39,11 @@ module "ec2" {
   user_data = <<-EOF
   #!/usr/bin/env bash
 
-  set -x
-
-  yum update -y
-
-  yum install -y htop wget
-
-  wget -O /usr/local/bin/tcping https://github.com/Tcp-Ping/Tcping/releases/download/v0.1.1/linux-amd64-tcping
-
-  chmod 775 /usr/local/bin/*
+# set -x
+# yum update -y
+# yum install -y htop wget
+# wget -O /usr/local/bin/tcping https://github.com/Tcp-Ping/Tcping/releases/download/v0.1.1/linux-amd64-tcping
+# chmod 775 /usr/local/bin/*
 
   EOF
 }
