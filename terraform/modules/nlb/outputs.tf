@@ -74,3 +74,6 @@ output "route53_records" {
   description = "The Route53 records created and attached to the load balancer"
   value       = module.nlb.route53_records
 }
+
+output "nlb_sg_all"  { value = aws_security_group.sg   }
+output "nlb_sg_name" { value = aws_ec2_tag.nlb_sg_name }

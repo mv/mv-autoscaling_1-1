@@ -11,18 +11,28 @@ locals {
 ##
 ## My SG
 ##
-resource "aws_security_group" "sg" {
+
+resource "aws_security_group" "sg" {0
   name        = "nlb-${var.name}"
   description = "NLB: ${var.name} security group"
 
   vpc_id = data.aws_subnet.subnet.vpc_id
 
   tags = merge(
-    { Name = "ec2-${var.name}" },
+    { Name = "nlb-${var.name}" },
     var.tags,
     local.module_tags
   )
 
+}
+
+##
+## Security Group: Tag Name
+##
+resource "aws_ec2_tag" "nlb_sg_name" {
+  resource_id = aws_security_group.sg.id
+  key         = "Name"
+  value       = "nlb-${var.name}"
 }
 
 ##

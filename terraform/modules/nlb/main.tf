@@ -76,12 +76,3 @@ module "nlb" {
   ## TODO: Health Checks
   ## Ref: https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html#health-check-settings
   ##
-
-##
-## Security Group: Tag Name
-##
-resource "aws_ec2_tag" "nlb_sg_name" {
-  resource_id = aws_security_group.sg.id
-  key         = "Name"
-  value       = var.name
-}
