@@ -5,7 +5,8 @@
 locals {
   time_now    = timestamp()
   time_brt    = timeadd(local.time_now, "-3h" )
-  server_name = "ec2-${var.customer}-${formatdate("YYYY-MM-DD-hh.mm.ss", local.time_brt)}-BRT"
+# server_name = "ec2-${var.customer}-${formatdate("YYYY-MM-DD-hh.mm.ss", local.time_brt)}-BRT"
+  server_name = "asg-${var.customer}"
 }
 
 resource "aws_launch_template" "lt" {
@@ -97,10 +98,14 @@ resource "aws_launch_template" "lt" {
 
   tag_specifications {
     resource_type = "instance"
-    tags = {
-      Name       = local.server_name
-      ServerName = local.server_name
-    }
+    tags = merge(
+      var.tags,
+      local.module_tags,
+      {
+        Name       = local.server_name
+        ServerName = local.server_name
+      }
+    )
   }
 
 

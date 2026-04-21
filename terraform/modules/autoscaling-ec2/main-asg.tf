@@ -15,7 +15,7 @@ locals {
   ]
 }
 
-/****
+/****/
 
 resource "aws_autoscaling_group" "asg" {
   name = local.name
@@ -53,7 +53,7 @@ resource "aws_autoscaling_group" "asg" {
   max_instance_lifetime = 31536000 # in seconds
 
 
-  health_check_type         = "EC2"  # EC2, ELB, EBS
+  health_check_type         = "ELB"  # EC2, ELB, EBS
   health_check_grace_period = 300
 # force_delete              = true
 
@@ -84,8 +84,12 @@ resource "aws_autoscaling_group" "asg" {
   ##
   launch_template {
     id      = aws_launch_template.lt.id
-    version = aws_launch_template.lt.latest_version
+#   version = aws_launch_template.lt.latest_version
   }
+
+# # Test...
+# lifecycle { ignore_changes = [ launch_template ] }
+
 
   instance_refresh {
     strategy = "Rolling"
