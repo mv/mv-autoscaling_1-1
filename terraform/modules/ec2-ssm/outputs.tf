@@ -9,8 +9,8 @@ output "ec2_key_name"          { value = var.key_name }
 output "ec2_key_ssm_path"      { value = var.key_ssm_path }
 
 output "vpc_id"          { value = data.aws_subnet.subnet.vpc_id }
-output "vpc_name"        { value = data.aws_subnet.subnet.tags.Name }
 output "vpc_az"          { value = data.aws_subnet.subnet.availability_zone }
+output "vpc_subnet_name" { value = data.aws_subnet.subnet.tags.Name }
 output "vpc_subnet_id"   { value = data.aws_subnet.subnet.id }
 output "vpc_subnet_cidr" { value = data.aws_subnet.subnet.cidr_block }
 
@@ -22,7 +22,8 @@ output "ssm_connection_info"   { value = var.ssm_connection_info }
 # output "path_module" { value = "${path.module}" }
 # output "path_cwd"    { value = "${path.cwd}" }
 
+# output "data_aws_subnet" { value = data.aws_subnet.subnet }
+
 output "data_ami_id"  { value = data.aws_ami.al2023.id }
 output "var_ami_id"   { value = var.ami_id }
-
 

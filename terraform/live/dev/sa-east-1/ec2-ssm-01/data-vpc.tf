@@ -11,13 +11,13 @@ data "aws_vpc" "vpc" {
 }
 
 output "data_vpc" { # value = data.aws_vpc.vpc }
- value = {
-   tomap = {
-     "name"   = data.aws_vpc.vpc.tags.Name
-     "vpc_id" = data.aws_vpc.vpc.id
-     "region" = data.aws_vpc.vpc.region
-     "cidr"   = data.aws_vpc.vpc.cidr_block
-     "cidr_block_associations" = data.aws_vpc.vpc.cidr_block_associations
-   }
- }
+  value = {
+    tomap = {
+      "name"   = data.aws_vpc.vpc.tags.Name
+      "vpc_id" = data.aws_vpc.vpc.id
+      "region" = data.aws_vpc.vpc.region
+      "cidr"   = data.aws_vpc.vpc.cidr_block
+      "cidr_block_associations" = data.aws_vpc.vpc.cidr_block_associations
+    }
+  }
 }

@@ -60,8 +60,8 @@ module "asg" {
     echo "Start: $(date)" >> /tmp/userdata.log
     echo                  >> /tmp/userdata.log
 
-#   sudo yum install -y httpd | tee -a /tmp/userdata.log
-#   sudo service httpd start  | tee -a /tmp/userdata.log
+    # sudo yum install -y httpd | tee -a /tmp/userdata.log
+    # sudo service httpd start  | tee -a /tmp/userdata.log
 
     cat > /etc/profile.d/noproxy.sh <<EOF
     ##
@@ -84,7 +84,11 @@ module "asg" {
 # user_data = filebase64(var.user_data)
 
   tags = {
-    "asg:env"     = "dev"
+    "Service"     = "POC/asg: acme"
+    "Environment" = "lab"
+
+    "asg:env"      = "lab"
+    "asg:app"      = "asg/http-server"
     "asg:customer" = var.customer
   }
 

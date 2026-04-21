@@ -3,8 +3,9 @@ module "ssm-01" {
   source = "../../../../modules/ec2-ssm"
 
   name           = "ssm-01"
-  instance_type  = "t3.micro"
+  instance_type  = "t3.medium"
   ami_id         = data.aws_ami.ami.id
+  key_name       = var.key_name
 
   root_block_device = { "size" = 10, "type" = "gp3" }
 
@@ -18,7 +19,10 @@ module "ssm-01" {
 
 
   tags = {
-    "mv:automation:env" = "dev"
-    "mv:automation:app" = "ec2-ssm-01"
+    "Service"     = "POC/asg: ssm-server"
+    "Environment" = "lab"
+
+    "mv:env" = "lab"
+    "mv:app" = "asg/ssm-server"
   }
 }

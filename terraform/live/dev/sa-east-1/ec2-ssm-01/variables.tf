@@ -1,6 +1,7 @@
 
 # Module vars
-variable "subnet_id"     { default = "" }
+variable "subnet_id" { default = "" }
+variable "key_name"  { default = "" }
 
 
 # Self discovery vars

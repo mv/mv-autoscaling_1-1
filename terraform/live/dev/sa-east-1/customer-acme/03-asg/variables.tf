@@ -2,7 +2,7 @@
 variable "customer"      { default = "acme" }
 variable "vpc_id"        { default = "" }
 
-variable "instance_type" { default = "t3.micro"   }
+variable "instance_type" { default = "t3.medium"   }
 variable "ami_id"        { default = "" } # default: use from 'ssm:parameter'
 
 variable "key_name"      { default = "" }

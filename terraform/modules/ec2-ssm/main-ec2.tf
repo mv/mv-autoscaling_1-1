@@ -39,11 +39,12 @@ module "ec2" {
   user_data = <<-EOT
   #!/usr/bin/env bash
 
-  # set -x
-  # yum update -y
-  # yum install -y htop wget
-  # wget -O /usr/local/bin/tcping https://github.com/Tcp-Ping/Tcping/releases/download/v0.1.1/linux-amd64-tcping
-  # chmod 775 /usr/local/bin/*
+    set -x
+    dnf update -y
+    dnf install -y htop btop wget nmap
+
+    wget -O   /usr/local/bin/tcping https://github.com/Tcp-Ping/Tcping/releases/download/v0.1.1/linux-amd64-tcping
+    chmod 775 /usr/local/bin/tcping
 
     cat > /etc/profile.d/noproxy.sh <<EOF
     ##
@@ -56,6 +57,11 @@ module "ec2" {
 
     set -o vi
     alias env='env | sort'
+    alias envg='env | sort | grep -i'
+    alias ssl='ss -ltnp | column -t'
+    alias ssg='ss -ltnp | column -t | grep -i'
+    alias ls='ls -hAF --time-style=long-iso --group-directories-first'
+    alias ll='ls -l'
 
     EOF
 

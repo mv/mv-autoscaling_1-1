@@ -21,4 +21,13 @@ data "aws_ami" "ami" {
   }
 }
 
-output "data_ami" { value = data.aws_ami.ami }
+output "data_ami" {
+  value = {
+    tomap = {
+      "id"       = data.aws_ami.ami.id
+      "name"     = data.aws_ami.ami.name
+      "onwer_id" = data.aws_ami.ami.owner_id
+  }
+}
+}
+

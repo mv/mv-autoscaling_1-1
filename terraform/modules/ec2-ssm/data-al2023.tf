@@ -1,10 +1,6 @@
 # vscode-modelines
 # vim: set ft=terraform:
 
-data "aws_subnet" "subnet" {
-  id = var.subnet_id
-}
-
 data "aws_ami" "al2023" {
   most_recent = true
   owners      = ["amazon"]
